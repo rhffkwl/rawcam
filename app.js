@@ -123,3 +123,14 @@ document.addEventListener('visibilitychange', () => {
 });
 startCamera();
 window.__rawcam = { state, shoot, save };
+
+/* ---------- Block page pinch-zoom / double-tap zoom (iOS ignores user-scalable=no) ---------- */
+for (const ev of ['gesturestart', 'gesturechange', 'gestureend']) document.addEventListener(ev, (e) => e.preventDefault(), { passive: false });
+document.addEventListener('touchmove', (e) => { if (e.touches.length > 1) e.preventDefault(); }, { passive: false });
+let lastTouchEnd = 0;
+document.addEventListener('touchend', (e) => {
+  const now = Date.now();
+  if (now - lastTouchEnd < 350 && e.target.id !== 'reviewImg') { e.preventDefault(); if (e.target.closest('button')) e.target.closest('button').click(); }
+  lastTouchEnd = now;
+}, { passive: false });
+document.addEventListener('dblclick', (e) => e.preventDefault(), { passive: false });
