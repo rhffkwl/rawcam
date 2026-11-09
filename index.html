@@ -13,32 +13,34 @@
 <link rel="icon" href="icon-192.png">
 <link rel="manifest" href="manifest.webmanifest">
 <title>보이는 대로 카메라</title>
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
-<main id="stage">
-  <video id="video" playsinline muted autoplay></video>
-  <div id="flash"></div>
-</main>
-
+<div id="app">
 <header id="top">
   <button id="btnRes" class="chip" aria-label="해상도 선택">4:3 최대</button>
   <span id="resLabel" class="chip ghost">—</span>
   <button id="btnMirror" class="chip on" hidden aria-label="전면 좌우반전 저장">반전 저장 켬</button>
 </header>
 
-<div id="recTime" hidden><i></i><span>00:00</span></div>
+<main id="stage">
+  <video id="video" playsinline muted autoplay></video>
+  <div id="recTime" hidden><i></i><span>00:00</span></div>
+  <div id="flash"></div>
+</main>
 
-<nav id="modes" role="tablist">
-  <button id="modePhoto" class="mode on" role="tab">사진</button>
-  <button id="modeVideo" class="mode" role="tab">동영상</button>
-</nav>
-
-<footer id="bottom">
-  <button id="thumb" aria-label="마지막 사진"><img id="thumbImg" alt=""></button>
-  <button id="shutter" aria-label="촬영"><span></span></button>
-  <button id="btnFlip" aria-label="카메라 전환">⟲</button>
-</footer>
+<div id="controls">
+  <nav id="modes" role="tablist">
+    <button id="modePhoto" class="mode on" role="tab">사진</button>
+    <button id="modeVideo" class="mode" role="tab">동영상</button>
+  </nav>
+  <div id="bottom">
+    <span class="spacer"></span>
+    <button id="shutter" aria-label="촬영"><span></span></button>
+    <button id="btnFlip" aria-label="카메라 전환">⟲</button>
+  </div>
+</div>
+</div>
 
 <section id="review" hidden>
   <div id="reviewImgWrap"><img id="reviewImg" alt="찍은 사진"><video id="reviewVideo" playsinline controls hidden></video></div>
@@ -58,6 +60,6 @@
 </section>
 
 <div id="toast" hidden></div>
-<script src="app.js?v=4"></script>
+<script src="app.js?v=5"></script>
 </body>
 </html>

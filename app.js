@@ -113,7 +113,6 @@ async function shootPhoto() {
     const blob = await new Promise((r) => c.toBlob(r, 'image/jpeg', 0.95));
     if (!blob) throw new Error('이미지 만들기 실패');
     state.file = new File([blob], `rawcam_${stamp()}.jpg`, { type: 'image/jpeg', lastModified: Date.now() });
-    setUrl($('thumbImg'), URL.createObjectURL(blob));
     showReview(blob, `${w}×${h} · ${state.facing === 'user' ? '전면' : '후면'}${mirror ? ' · 좌우반전' : ''}`);
   } catch (e) {
     console.error(e); toast('촬영 오류: ' + (e.name || e.message));
@@ -198,25 +197,11 @@ function finishRecording(blob, type, info) {
   $('btnSave').textContent = '저장';
   const secs = Math.round((Date.now() - state.recStart) / 1000);
   showReview(blob, `${info} · ${secs}초 · ${(blob.size / 1e6).toFixed(1)}MB`, true);
-  makeVideoThumb(blob);
-}
-function makeVideoThumb(blob) {
-  const v = document.createElement('video'); v.muted = true; v.playsInline = true; v.preload = 'auto';
-  const u = URL.createObjectURL(blob); v.src = u;
-  const grab = () => {
-    try {
-      const c = document.createElement('canvas'); c.width = 160; c.height = Math.round(160 * (v.videoHeight / v.videoWidth || 1));
-      c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);
-      c.toBlob((b) => { if (b) setUrl($('thumbImg'), URL.createObjectURL(b)); URL.revokeObjectURL(u); }, 'image/jpeg', 0.8);
-    } catch (e) { URL.revokeObjectURL(u); }
-  };
-  v.addEventListener('loadeddata', grab, { once: true });
-  v.addEventListener('error', () => URL.revokeObjectURL(u), { once: true });
 }
 let recTimer = null;
 function setRecUI(on) {
   $('shutter').classList.toggle('rec', on);
-  for (const id of ['btnFlip', 'btnRes', 'modePhoto', 'modeVideo', 'thumb']) $(id).disabled = on;
+  for (const id of ['btnFlip', 'btnRes', 'modePhoto', 'modeVideo']) $(id).disabled = on;
   $('btnMirror').disabled = on;
   $('recTime').hidden = !on;
   clearInterval(recTimer);
@@ -254,6 +239,7 @@ function showReview(blob, info, isVideo = false) {
     $('reviewHint').textContent = '저장 버튼 → "이미지 저장"을 누르면 사진 앱에 들어가요. 안 되면 사진을 길게 눌러 저장하세요.';
   }
   $('reviewInfo').textContent = info;
+  $('btnSave').textContent = '저장';
   $('review').hidden = false;
 }
 async function save() {
@@ -277,7 +263,6 @@ $('btnFlip').onclick = () => { if (state.recording) return; state.facing = state
 $('btnRes').onclick = () => { if (state.recording) return; state.resIdx = (state.resIdx + 1) % RES.length; $('btnRes').textContent = RES[state.resIdx].name; startCamera(); };
 $('modePhoto').onclick = () => setMode('photo');
 $('modeVideo').onclick = () => setMode('video');
-$('thumb').onclick = () => { if (state.file && !state.recording) $('review').hidden = false; };
 $('btnCloseReview').onclick = () => { $('reviewVideo').pause(); $('review').hidden = true; };
 $('btnSave').onclick = save;
 document.addEventListener('visibilitychange', () => {
