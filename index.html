@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="보이는대로">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<title>보이는 대로 카메라</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="wb" color-interpolation-filters="sRGB">
+    <feColorMatrix id="wbm" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+  </filter>
+</svg>
+
+<main id="stage">
+  <video id="video" playsinline muted autoplay></video>
+  <div id="grid" hidden><i></i><i></i><i></i><i></i></div>
+  <div id="countdown" hidden></div>
+  <div id="flash"></div>
+</main>
+
+<header id="top">
+  <button id="btnTorch" class="chip" hidden aria-label="손전등">🔦 끔</button>
+  <button id="btnRes" class="chip" aria-label="해상도 선택">4:3 최대</button>
+  <span id="resLabel" class="chip ghost">—</span>
+  <button id="btnTimer" class="chip" aria-label="타이머">⏱ 끔</button>
+  <button id="btnGrid" class="chip" aria-label="격자">격자 끔</button>
+  <button id="btnPanel" class="chip" aria-label="조절">조절</button>
+</header>
+
+<footer id="bottom">
+  <button id="thumb" aria-label="마지막 사진"><img id="thumbImg" alt=""></button>
+  <button id="shutter" aria-label="촬영"><span></span></button>
+  <button id="btnFlip" aria-label="카메라 전환">⟲</button>
+</footer>
+
+<section id="panel" hidden>
+  <div class="panel-head"><b>보정 (미리보기와 결과에 똑같이 적용)</b><button id="btnReset" class="chip">초기화</button></div>
+  <label>밝기 <output id="o_b">0</output><input id="s_b" type="range" min="-50" max="50" value="0"></label>
+  <label>대비 <output id="o_c">0</output><input id="s_c" type="range" min="-50" max="50" value="0"></label>
+  <label>색온도 <output id="o_t">0</output><input id="s_t" type="range" min="-50" max="50" value="0"></label>
+  <label>채도 <output id="o_s">0</output><input id="s_s" type="range" min="-100" max="100" value="0"></label>
+  <label class="row" id="mirrorRow"><input id="chkMirror" type="checkbox" checked> 전면 카메라: 미리보기처럼 좌우반전해서 저장</label>
+  <div class="panel-head"><b>카메라 제어</b></div>
+  <div id="camControls"></div>
+  <p id="capsInfo" class="muted"></p>
+  <button id="btnClosePanel" class="wide">닫기</button>
+</section>
+
+<section id="review" hidden>
+  <div id="reviewImgWrap"><img id="reviewImg" alt="찍은 사진"></div>
+  <p class="muted" id="reviewInfo"></p>
+  <p class="muted small">저장 버튼 → "이미지 저장"을 누르면 사진 앱에 들어가요. 안 되면 사진을 길게 눌러 저장하세요.</p>
+  <div class="review-btns">
+    <button id="btnCloseReview">닫기</button>
+    <button id="btnAdjustReview">보정</button>
+    <button id="btnSave" class="primary">저장</button>
+  </div>
+</section>
+
+<section id="startScreen">
+  <h1>보이는 대로 카메라</h1>
+  <p>미리보기 화면 그대로 저장해요.<br>스마트 HDR·야간 모드·얼굴 보정 없음.</p>
+  <button id="btnStart" class="primary">카메라 켜기</button>
+  <p id="startMsg" class="muted"></p>
+</section>
+
+<div id="toast" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>
