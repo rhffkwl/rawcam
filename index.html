@@ -13,7 +13,7 @@
 <link rel="icon" href="icon-192.png">
 <link rel="manifest" href="manifest.webmanifest">
 <title>보이는 대로 카메라</title>
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 <main id="stage">
@@ -27,6 +27,13 @@
   <button id="btnMirror" class="chip on" hidden aria-label="전면 좌우반전 저장">반전 저장 켬</button>
 </header>
 
+<div id="recTime" hidden><i></i><span>00:00</span></div>
+
+<nav id="modes" role="tablist">
+  <button id="modePhoto" class="mode on" role="tab">사진</button>
+  <button id="modeVideo" class="mode" role="tab">동영상</button>
+</nav>
+
 <footer id="bottom">
   <button id="thumb" aria-label="마지막 사진"><img id="thumbImg" alt=""></button>
   <button id="shutter" aria-label="촬영"><span></span></button>
@@ -34,9 +41,9 @@
 </footer>
 
 <section id="review" hidden>
-  <div id="reviewImgWrap"><img id="reviewImg" alt="찍은 사진"></div>
+  <div id="reviewImgWrap"><img id="reviewImg" alt="찍은 사진"><video id="reviewVideo" playsinline controls hidden></video></div>
   <p class="muted" id="reviewInfo"></p>
-  <p class="muted small">저장 버튼 → "이미지 저장"을 누르면 사진 앱에 들어가요. 안 되면 사진을 길게 눌러 저장하세요.</p>
+  <p class="muted small" id="reviewHint"></p>
   <div class="review-btns">
     <button id="btnCloseReview">닫기</button>
     <button id="btnSave" class="primary">저장</button>
@@ -51,6 +58,6 @@
 </section>
 
 <div id="toast" hidden></div>
-<script src="app.js?v=3"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>

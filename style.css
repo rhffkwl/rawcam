@@ -10,7 +10,7 @@ button{font:inherit;color:inherit;border:0;cursor:pointer}
 .chip{background:rgba(40,40,44,.8);padding:7px 11px;border-radius:16px;font-size:13px;white-space:nowrap}
 .chip.ghost{background:transparent;color:#f5c842}
 .chip.on{background:#f5c842;color:#000}
-#bottom{position:fixed;left:0;right:0;bottom:0;padding:16px 28px calc(env(safe-area-inset-bottom) + 18px);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(#0000,#000a)}
+#bottom{position:fixed;left:0;right:0;bottom:0;padding:8px 28px calc(env(safe-area-inset-bottom) + 18px);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(#0000,#000a)}
 #shutter{width:76px;height:76px;border-radius:50%;background:transparent;border:4px solid #fff;display:flex;align-items:center;justify-content:center}
 #shutter span{width:60px;height:60px;border-radius:50%;background:#fff;transition:transform .1s}
 #shutter:active span{transform:scale(.88)}
@@ -35,3 +35,13 @@ button{font:inherit;color:inherit;border:0;cursor:pointer}
 [hidden]{display:none!important}
 html,body,button,.chip,#stage,#video{touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 #reviewImg{touch-action:manipulation;-webkit-user-select:auto;user-select:auto;-webkit-touch-callout:default}
+#modes{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom) + 116px);display:flex;justify-content:center;gap:18px;z-index:5}
+.mode{background:transparent;font-size:14px;font-weight:600;color:#ccc;padding:6px 4px;letter-spacing:.5px}
+.mode.on{color:#f5c842}
+.mode:disabled,#btnFlip:disabled,#btnRes:disabled{opacity:.35}
+#shutter.video span{background:#ff3b30;transition:all .2s}
+#shutter.video.rec span{width:30px;height:30px;border-radius:7px}
+#recTime{position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top) + 60px);background:#ff3b30;color:#fff;padding:4px 10px;border-radius:8px;font-variant-numeric:tabular-nums;font-size:16px;display:flex;align-items:center;gap:6px;z-index:6}
+#recTime i{width:8px;height:8px;border-radius:50%;background:#fff;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.2}}
+#reviewVideo{max-width:100%;max-height:100%;background:#000}
